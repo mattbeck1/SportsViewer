@@ -16,3 +16,14 @@ img.homepage-logo
     min-width: 100%;
     min-height: 100%;
   }
+
+audio
+{
+    display: hidden;
+}
+
+.nhl-live-logo
+{
+    height: 20px;
+    width: auto
+}

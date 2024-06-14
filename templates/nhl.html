@@ -72,18 +72,29 @@
                             <p class="text-center">{{ game.time }}</p>
                         </div>
                     {% elif game.game_state == 'LIVE' or game.game_state == 'CRIT' %}
-                        <div class="score-box-outer">
-                            <div class="score-box">
-                                <h1 class="score-text">{{ game.away_score }}</h1>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+                                <div class="d-inline-flex p-2 border rounded bg-light">
+                                    <h3>{{ game.away_score }}</h3>
+                                </div>
                             </div>
-                            <span class="score-space"></span>
-                            <div class="box">
-                                <p class="center red"><b>LIVE</b></p>
-                                <p class ="center inline"><b>Period {{ game.period }}</b></p>
+                            <div class="col">
+                                <p class="text-center text-danger"><b>LIVE</b></p>
+                                <p class ="text-center"><b>Period {{ game.period }}</b></p>
                             </div>
-                            <span class="score-space"></span>
-                            <div class="score-box">
-                                <h1 class="score-text">{{ game.home_score }}</h1>
+                            <div class="col d-flex justify-content-start">
+                                <div class="d-inline-flex p-2 border rounded bg-light" >
+                                    <h3 class="text-center">{{ game.home_score }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <a href="../watch?league=nhl&gameID={{game.game_id}}" class="text-decoration-none">
+                                    <div class="btn bg-success text-light">
+                                        Watch
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     {% elif game.game_state == 'OFF' or game.game_state == 'FINAL' %}

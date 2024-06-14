@@ -37,12 +37,18 @@ def getMLBSchedule():
 
         game_state = game['status']['codedGameState']
 
-        if (game_state == 'S'):
+        if (game_state == 'S' or game_state == 'P'):
             start = game['gameDate'].split('T')
             start_time = start[0] + ' ' + start[1].split('Z')[0]
             date_obj = datetime.strptime(start_time, date_format).replace(tzinfo=pytz.UTC).astimezone(local_timezone).strftime('%B %d, %Y %I:%M %p')
 
             g = dict({'away_team': away_team, 'home_team': home_team, 'time': date_obj, 'away_logo': away_logo, 'home_logo': home_logo, 'game_state': game_state})
+
+        elif (game_state == 'I'):
+            away_score = game['teams']['away']['score']
+            home_score = game['teams']['home']['score']
+
+            g = dict({'away_team': away_team, 'home_team': home_team, 'away_logo': away_logo, 'home_logo': home_logo, 'away_score': away_score, 'home_score': home_score, 'game_state': game_state})
         
         elif (game_state == 'F'):
             away_score = game['teams']['away']['score']
@@ -51,6 +57,7 @@ def getMLBSchedule():
             g = dict({'away_team': away_team, 'home_team': home_team, 'away_logo': away_logo, 'home_logo': home_logo, 'away_score': away_score, 'home_score': home_score, 'game_state': game_state})
         
         schedule_return.append(g)
+        print(g)
     return schedule_return
         
 def getTeamAbbrev(name, url):

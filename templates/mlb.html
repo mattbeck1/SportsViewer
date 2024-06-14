@@ -67,9 +67,25 @@
                             <h3 class="text-center"><b>{{ game.away_team }}</b> at <b>{{ game.home_team }}</b></h3>
                         </div>
                     </div>
-                    {% if game.game_state == 'S' %}
+                    {% if game.game_state == 'S' or game.game_state == 'P' %}
                         <div class="col">
                             <p class="text-center">{{ game.time }}</p>
+                        </div>
+                    {% elif game.game_state == 'I' %}
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+                                <div class="d-inline-flex p-2 border rounded bg-light">
+                                    <h3>{{ game.away_score }}</h3>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <p class="text-center text-danger"><b>LIVE</b></p>
+                            </div>
+                            <div class="col d-flex justify-content-start">
+                                <div class="d-inline-flex p-2 border rounded bg-light" >
+                                    <h3 class="text-center">{{ game.home_score }}</h3>
+                                </div>
+                            </div>
                         </div>
                     {% elif game.game_state == 'F' %}
                         <div class="row">
