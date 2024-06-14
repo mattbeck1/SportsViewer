@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang=""en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="/static/style.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Sports Server</title>
+</head>
+
+<body>
+    <div id="page">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../">
+                    <!-- <img src="static/jynxzi.png" alt="" width="40" height="40"> -->
+                    <p>HOME</p>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../nhl">NHL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../mlb">MLB</a>
+                        </li>
+                        <li class="#">
+                            <a class="nav-link disabled" href="#">NFL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">NBA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">CHEL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">THE SHOW</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% if data.game_info.league == 'nhl' %}
+        <div class="container-fluid border">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="row">
+                        <div class="col">
+                            <h3>SOG: {{ data.away_info.sog }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>FO%: {{ data.away_info.fopct }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>PP: {{ data.away_info.pp }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>PIM: {{ data.away_info.pim }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Hits: {{ data.away_info.hits }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>Blocked Shots: {{ data.away_info.bs }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Giveaways: {{ data.away_info.ga }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>Takeaways: {{ data.away_info.ta }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-3 me-5">
+                            <!-- <img src="{{ data.game_info.away_logo }}" alt="{{ data.game_info.away_team }} logo" style="height:100%; width:100%"  /> -->
+                            <h3 class="text-center">{{data.game_info.away_team}}</h3>
+                        </div>
+                        <div class="col-3 ms-5">
+                            <!-- <img src="{{ data.game_info.home_logo }}" alt="{{ data.game_info.home_team }} logo" style="height:100%; width:100%" /> -->
+                            <h3 class="text-center">{{data.game_info.home_team}}</h3>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-end me-5">
+                            <div class="d-inline-flex p-2 pt-3 border rounded bg-light">
+                                <h3>{{ data.game_info.away_score }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            {% if data.game_info.intermission %}
+                                <p class="text-center mb-0 text-danger"><b>LIVE</b></p>
+                                <p class ="text-center mb-0"><b>Intermission {{ data.game_info.period }}</b></p>
+                                <p class="text-center mb-0"><b>{{ data.game_info.clock }}</b></p>
+                            {% elif data.game_info.game_state == 'FINAL' or data.game_info.game_state == 'OFF' %}
+                                <p class="text-center mb-0"><b>FINAL</b></p>
+                            {% else %}
+                                <p class="text-center mb-0 text-danger"><b>LIVE</b></p>
+                                <p class ="text-center mb-0"><b>Period {{ data.game_info.period }}</b></p>
+                            {% endif %}
+                        </div>
+                        <div class="col d-flex justify-content-start ms-5">
+                            <div class="d-inline-flex p-2 pt-3 border rounded bg-light" >
+                                <h3 class="text-center">{{ data.game_info.home_score }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="row">
+                        <div class="col">
+                            <h3>SOG: {{ data.home_info.sog }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>FO%: {{ data.home_info.fopct }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>PP: {{ data.home_info.pp }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>PIM: {{ data.home_info.pim }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Hits: {{ data.home_info.hits }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>Blocked Shots: {{ data.home_info.bs }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Giveaways: {{ data.home_info.ga }}</h3>
+                        </div>
+                        <div class="col">
+                            <h3>Takeaways: {{ data.home_info.ta }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 border-end text-center">
+                    <div class="row bg-secondary text-light" style="height: 15px; font-size: 50%;">
+                        <div class="col">
+                            <p>#</p>
+                        </div>
+                        <div class="col">
+                            <p>Name</p>
+                        </div>
+                        <div class="col">
+                            <p>Position</p>
+                        </div>
+                        <div class="col">
+                            <p>G</p>
+                        </div>
+                        <div class="col">
+                            <p>A</p>
+                        </div>
+                        <div class="col">
+                            <p>PTS</p>
+                        </div>
+                        <div class="col">
+                            <p>+/-</p>
+                        </div>
+                        <div class="col">
+                            <p>PIM</p>
+                        </div>
+                        <div class="col">
+                            <p>H</p>
+                        </div>
+                        <div class="col">
+                            <p>PPG</p>
+                        </div>
+                        <div class="col">
+                            <p>SOG</p>
+                        </div>
+                        <div class="col">
+                            <p>FO%</p>
+                        </div>
+                        <div class="col">
+                            <p>TOI</p>
+                        </div>
+                    </div>
+                    {% for forward in data.away_box.forwards %}
+                    <div class="row small-font-size" style="font-size: 50%">
+                        <div class="col">
+                            <p>{{ forward.number }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.name }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.position }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.goals }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.assists }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.points }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.plusMinus }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.pim }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.hits }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.ppg }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.shots }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.faceoff }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.toi }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for defenceman in data.away_box.defencemen %}
+                    <div class="row small-font-size" style="font-size: 50%">
+                        <div class="col">
+                            <p>{{ defenceman.number }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.name }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.position }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.goals }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.assists }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.points }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.plusMinus }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.pim }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.hits }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.ppg }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.shots }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.faceoff }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.toi }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}  
+                </div>
+                <div  class="col-6">
+                    <div class="row bg-secondary text-light" style="height: 15px; font-size: 50%;">
+                        <div class="col">
+                            <p>#</p>
+                        </div>
+                        <div class="col">
+                            <p>Name</p>
+                        </div>
+                        <div class="col">
+                            <p>Position</p>
+                        </div>
+                        <div class="col">
+                            <p>G</p>
+                        </div>
+                        <div class="col">
+                            <p>A</p>
+                        </div>
+                        <div class="col">
+                            <p>PTS</p>
+                        </div>
+                        <div class="col">
+                            <p>+/-</p>
+                        </div>
+                        <div class="col">
+                            <p>PIM</p>
+                        </div>
+                        <div class="col">
+                            <p>H</p>
+                        </div>
+                        <div class="col">
+                            <p>PPG</p>
+                        </div>
+                        <div class="col">
+                            <p>SOG</p>
+                        </div>
+                        <div class="col">
+                            <p>FO%</p>
+                        </div>
+                        <div class="col">
+                            <p>TOI</p>
+                        </div>
+                    </div>
+                    {% for forward in data.home_box.forwards %}
+                    <div class="row small-font-size" style="font-size: 50%">
+                        <div class="col">
+                            <p>{{ forward.number }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.name }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.position }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.goals }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.assists }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.points }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.plusMinus }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.pim }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.hits }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.ppg }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.shots }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.faceoff }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ forward.toi }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for defenceman in data.home_box.defencemen %}
+                    <div class="row small-font-size" style="font-size: 50%">
+                        <div class="col">
+                            <p>{{ defenceman.number }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.name }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.position }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.goals }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.assists }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.points }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.plusMinus }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.pim }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.hits }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.ppg }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.shots }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.faceoff }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ defenceman.toi }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+            <div class="col">
+                    <div class="row bg-secondary text-light text-center" style="height: 15px; font-size: 50%;">
+                        <div class="col">
+                            <p>#</p>
+                        </div>
+                        <div class="col">
+                            <p>Name</p>
+                        </div>
+                        <div class="col">
+                            <p>Position</p>
+                        </div>
+                        <div class="col">
+                            <p>PPSA</p>
+                        </div>
+                        <div class="col">
+                            <p>SHSA</p>
+                        </div>
+                        <div class="col">
+                            <p>SA</p>
+                        </div>
+                        <div class="col">
+                            <p>SV%</p>
+                        </div>
+                        <div class="col">
+                            <p>PPGA</p>
+                        </div>
+                        <div class="col">
+                            <p>SHGA</p>
+                        </div>
+                        <div class="col">
+                            <p>GA</p>
+                        </div>
+                        <div class="col">
+                            <p>PIM</p>
+                        </div>
+                        <div class="col">
+                            <p>Starter</p>
+                        </div>
+                        <div class="col">
+                            <p>TOI</p>
+                        </div>
+                    </div> 
+                    {% for goalie in data.away_box.goalies %}
+                    <div class="row small-font-size text-center" style="font-size: 50%">
+                        <div class="col">
+                            <p>{{ goalie.number }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.name }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.position }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.ppsa }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.shsa }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.sa }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.svpct }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.ppga }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.shga }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.ga }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.pim }}</p>
+                        </div>
+                        <div class="col">
+                            {% if goalie.starter %}
+                                <!-- <img src="static/check-mark.png" style="height: 12px; width:auto" /> -->
+                                <p>Y</p>
+                            {% else %}
+                                <p></p>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.toi }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+            <div class="col border-start">
+                    <div class="row bg-secondary text-light text-center" style="height: 15px; font-size: 50%;">
+                        <div class="col">
+                            <p>#</p>
+                        </div>
+                        <div class="col">
+                            <p>Name</p>
+                        </div>
+                        <div class="col">
+                            <p>Position</p>
+                        </div>
+                        <div class="col">
+                            <p>PPSA</p>
+                        </div>
+                        <div class="col">
+                            <p>SHSA</p>
+                        </div>
+                        <div class="col">
+                            <p>SA</p>
+                        </div>
+                        <div class="col">
+                            <p>SV%</p>
+                        </div>
+                        <div class="col">
+                            <p>PPGA</p>
+                        </div>
+                        <div class="col">
+                            <p>SHGA</p>
+                        </div>
+                        <div class="col">
+                            <p>GA</p>
+                        </div>
+                        <div class="col">
+                            <p>PIM</p>
+                        </div>
+                        <div class="col">
+                            <p>Starter</p>
+                        </div>
+                        <div class="col">
+                            <p>TOI</p>
+                        </div>
+                    </div> 
+                    {% for goalie in data.home_box.goalies %}
+                    <div class="row small-font-size text-center" style="font-size: 50%">
+                        <div class="col">
+                            <p>{{ goalie.number }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.name }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.position }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.ppsa }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.shsa }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.sa }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.svpct }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.ppga }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.shga }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.ga }}</p>
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.pim }}</p>
+                        </div>
+                        <div class="col">
+                            {% if goalie.starter %}
+                                <!-- <img src="static/check-mark.png" style="height: 12px; width:auto" /> -->
+                                <p>Y</p>
+                            {% else %}
+                                <p></p>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <p>{{ goalie.toi }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-3 border text-center">
+                {% if data.awayTeam %}
+                    <button id="awayTeam" class="btn btn-success">ON</button>
+                {% else %}
+                    <button id="awayTeam" class="btn btn-danger">OFF</button>
+                {% endif %}
+            </div>
+            <div class="col border text-center">
+                <form method="GET" action="http://127.0.0.1:4996/watch">
+                    <label for="delay">Delay (between 0 and 60):</label>
+                    <input type="range" id="delay" id="delay" name="delay" min="0" max="60" value="{{data.delay}}">
+                    <div id="hiddenVals"></div>
+                    <input type="submit" value="Change Delay" class="btn btn-primary">
+                </form>
+                <script>
+                    let queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+                    const entries = urlParams.entries()
+                    for (const entry of entries){
+                        if (entry[0] != 'delay'){
+                            document.getElementById("hiddenVals").innerHTML +=
+                            `<input type="hidden" name="${entry[0]}" value="${entry[1]}">`;
+                        } 
+                    }
+                </script>
+            </div>
+            <div class="col-3 border text-center">
+                {% if data.homeTeam %}
+                    <button id="homeTeam" class="btn btn-success">ON</button>
+                {% else %}
+                    <button id="homeTeam" class="btn btn-danger">OFF</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- JS to control the away and home team toggles -->
+    <script>
+        let awayTeamBtn = document.getElementById('awayTeam');
+        awayTeamBtn.addEventListener("click", function() {
+            let url = window.location.href;
+            if (url.indexOf('&awayTeam=1') > -1){
+                url = url.replace("&awayTeam=1", "&awayTeam=0");
+            }
+            else if (url.indexOf('&awayTeam=0') > -1){
+                url = url.replace("&awayTeam=0", "&awayTeam=1");
+            }
+            else {
+                url += '&awayTeam=0';
+            }
+            window.location.href = url;
+        });
+
+        let homeTeamBtn = document.getElementById('homeTeam');
+        homeTeamBtn.addEventListener("click", function() {
+            let url = window.location.href;
+            if (url.indexOf('&homeTeam=1') > -1){
+                url = url.replace("&homeTeam=1", "&homeTeam=0");
+            }
+            else if (url.indexOf('&homeTeam=0') > -1){
+                url = url.replace("&homeTeam=0", "&homeTeam=1");
+            }
+            else {
+                url += '&homeTeam=0';
+            }
+            window.location.href = url;
+        });
+    </script>
+
+    <div id="animate" style="display: none">
+        {% if data.game_info.league == 'nhl'%}
+            {% if data.awayTeam == 1 and data.goal == 'away' %}
+                <video muted id="video" style=" width:100%; height: 100%; display:block; margin: 0 auto; object-fit: cover;">
+                    <source src="static/nhl_goal/{{data.game_info.away_team}}_goal.mp4#t=3,58" type="video/mp4" />
+                </video>
+                <audio id="audio" src="static/nhl_goal/{{data.game_info.away_team}}_goal.mp3"></audio>
+            {% elif data.homeTeam == 1 and data.goal == 'home' %}
+                <video muted  id="video" style=" width:100%; height: 100%; display:block; margin: 0 auto; object-fit: cover;">
+                    <source src="static/nhl_goal/{{data.game_info.home_team}}_goal.mp4#t=3,58" type="video/mp4" />
+                </video>
+                <audio id="audio" src="static/nhl_goal/{{data.game_info.home_team}}_goal.mp3"></audio>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div id="final" style="display: none">
+        {% if data.game_info.league == 'nhl'%}
+            {% if data.awayTeam == 1 and (data.game_info.game_state == 'FINAL' or data.game_info.game_state == 'OFF') and (data.game_info.away_score > data.game_info.home_score) %}
+                <video muted id="final_video" style=" width:100%; height: 100%; display:block; margin: 0 auto; object-fit: cover;">
+                    <source src="static/nhl_win/{{data.game_info.away_team}}_win.mp4#t=3,35" type="video/mp4" />
+                </video>
+                <audio id="final_audio" src="static/nhl_win/{{data.game_info.away_team}}_win.mp3"></audio>
+            {% elif data.homeTeam == 1 and (data.game_info.game_state == 'FINAL' or data.game_info.game_state == 'OFF') %}
+                <video muted  id="final_video" style=" width:100%; height: 100%; display:block; margin: 0 auto; object-fit: cover;">
+                    <source src="static/nhl_win/{{data.game_info.home_team}}_win.mp4#t=3,35" type="video/mp4" />
+                </video>
+                <audio id="final_audio" src="static/nhl_win/{{data.game_info.home_team}}_win.mp3"></audio>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    {% if data.game_info.league == 'nhl' %}
+        <script>
+            let url = window.location.href;
+            if (url.indexOf('&continue') <= -1){
+                url += '&continue=1';
+            }
+        </script>
+        {% if (data.awayTeam == 1 and data.goal == 'away') or (data.homeTeam and data.goal == 'home') %}
+            <script>
+                document.querySelector('#page').style.display = 'none';
+                document.querySelector('#animate').style.display = 'unset';
+                let audio = document.getElementById('audio');
+                let video = document.getElementById('video');
+                audio.play();
+                video.play();
+                video.onended = function() {
+                    audio.pause()
+                    document.querySelector('#animate').style.display = 'none';
+                    document.querySelector('#page').style.display = 'unset';
+                };
+                window.setTimeout( function() {
+                    window.location.href = url;
+                }, 45000);
+            </script>
+            <!-- you can remove the video.onended function and just use settimeout to stop the video from playing -->
+        {% elif (data.game_info.game_state == 'FINAL' or data.game_info.game_state == 'OFF') and ((data.awayTeam == 1 and data.game_info.away_score > data.game_info.home_score) or (data.homeTeam == 1 and data.game_info.home_score > data.game_info.away_score)) %}
+            <script>
+                document.querySelector('#page').style.display = 'none';
+                document.querySelector('#final').style.display = 'unset';
+                let final_audio = document.getElementById('final_audio');
+                let final_video = document.getElementById('final_video');
+                final_audio.play();
+                final_video.play();
+                final_audio.onended = function() {
+                    document.querySelector('#final').style.display = 'none';
+                    document.querySelector('#page').style.display = 'unset';
+                };
+            </script>
+        {% elif data.game_info.intermission %}
+            <script>
+                window.setTimeout( function() {
+                    window.location.href = url;
+                }, 30000);
+            </script>
+        {% elif not data.game_info.clock_running %}
+            <script>
+                window.setTimeout( function() {
+                    window.location.href = url;
+                }, 5000);
+            </script>
+        {% elif data.game_info.game_state != 'FINAL' and data.game_info.game_state != 'OFF' %}
+            <script>
+                window.setTimeout( function(){
+                    window.location.href = url
+                }, 1000);
+            </script>
+        {% endif %}
+    {% endif %}
+
+
+
+</body>
+
+</html>
