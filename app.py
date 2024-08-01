@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
-from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
 from nhl import *
 from mlb import *
 import time
 import re
 
 app = Flask(__name__)
-bootstrap = Bootstrap5(app)
+bootstrap = Bootstrap(app)
 
 current_away_score = 0
 current_home_score = 0

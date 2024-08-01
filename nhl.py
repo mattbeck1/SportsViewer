@@ -9,6 +9,7 @@ import cv2 as cv
 from matplotlib import pyplot as plt
 import re
 import time
+from send_requests import send_get_request
 
 date_format = '%Y-%m-%d %H:%M:%S'
 local_timezone = pytz.timezone('America/New_York')
@@ -372,18 +373,6 @@ def getSeconds(time: str) -> int:
         seconds = int(matches[0])
 
     return seconds
-
-def send_get_request(URL):
-    while True:
-        try:
-            r = requests.get(URL)
-            if r.status_code not in [200]:
-                time.sleep(1)
-            else:
-                break
-        except requests.exceptions.ConnectionError:
-            pass
-    return r
 
 
 

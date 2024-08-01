@@ -3,6 +3,7 @@ import pytz
 import requests
 import shutil
 import os
+from send_requests import send_get_request
 
 date_format = '%Y-%m-%d %H:%M:%S'
 local_timezone = pytz.timezone('America/New_York')
@@ -36,6 +37,7 @@ def getMLBSchedule():
         home_logo = f'static/mlb/{home_team}_logo.svg'
 
         game_state = game['status']['codedGameState']
+        game_id = game['gamePk']
 
         if (game_state == 'S' or game_state == 'P'):
             start = game['gameDate'].split('T')
@@ -48,7 +50,7 @@ def getMLBSchedule():
             away_score = game['teams']['away']['score']
             home_score = game['teams']['home']['score']
 
-            g = dict({'away_team': away_team, 'home_team': home_team, 'away_logo': away_logo, 'home_logo': home_logo, 'away_score': away_score, 'home_score': home_score, 'game_state': game_state})
+            g = dict({'game_id':game_id, 'away_team': away_team, 'home_team': home_team, 'away_logo': away_logo, 'home_logo': home_logo, 'away_score': away_score, 'home_score': home_score, 'game_state': game_state})
         
         elif (game_state == 'F'):
             away_score = game['teams']['away']['score']
@@ -65,6 +67,13 @@ def getTeamAbbrev(name, url):
     abbrev = team_details['teams'][0]['abbreviation']
     team_abbrev[name] = abbrev
     return abbrev
+
+def getMLBGameInfo(gameID:int, current_away_score:int, current_home_score:int) -> dict():
+    url = f'http://statsapi.mlb.com/api/v1/game/{gameID}/content'
+    return_request = send_get_request(url)
+    game_data = return_request.json()
+
+
 
 def main():
     getMLBSchedule()

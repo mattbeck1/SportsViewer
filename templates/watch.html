@@ -726,7 +726,7 @@
                 };
                 window.setTimeout( function() {
                     window.location.href = url;
-                }, 45000);
+                }, 40000);
             </script>
             <!-- you can remove the video.onended function and just use settimeout to stop the video from playing -->
         {% elif (data.game_info.game_state == 'FINAL' or data.game_info.game_state == 'OFF') and ((data.awayTeam == 1 and data.game_info.away_score > data.game_info.home_score) or (data.homeTeam == 1 and data.game_info.home_score > data.game_info.away_score)) %}
