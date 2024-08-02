@@ -2,6 +2,9 @@ import requests
 import json
 import os
 import time
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Device():
     def __init__(self, api_key, sku, device, deviceName):
@@ -331,7 +334,7 @@ class Govee():
         return devices
     
 
-govee = Govee(api_key='34540eff-22d0-4759-805e-09ff9d1caa84')
+govee = Govee(api_key=os.getenv('API_KEY'))
 # man_cave_lights = govee.devices[-1]
 wall_lights = govee.devices[1]
 
