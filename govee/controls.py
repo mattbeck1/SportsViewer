@@ -2,7 +2,7 @@ import requests
 import time
 
 url = f'https://developer-api.govee.com/v1/devices/control'    
-api_key = '34540eff-22d0-4759-805e-09ff9d1caa84'
+api_key = None
 device_id = '1D:89:C9:38:30:33:3E:85'
 headers = {
     'Govee-API-Key': api_key,
