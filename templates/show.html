@@ -8,10 +8,27 @@
     </div>
 </head>
 
-<body>
+<body onload="initiateFrameReading()">
     {% include 'navbar.html' %}
 
+    <script>
+        function initiateFrameReading() {
+            fetch('/process_frame', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ game: '{{ game }}' })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.status);
+                })
+        }
+    </script>
 
+    <!-- <script>
+        const game = "show"
+    </script>
+    <script src="{{ url_for('static', filename='js/game_listener.js') }}"></script> -->
 
 </body>
 
