@@ -7,23 +7,32 @@ app = Flask(__name__)
 bootstrap = Bootstrap5(app)
 
 
-@app.route('/')
+@app.route("/")
 def main():
-    return render_template('homepage.html')
+    return render_template("homepage.html")
 
-@app.route('/nhl')
+
+@app.route("/nhl")
 def nhl():
     schedule = getNHLSchedule()
-    return render_template('nhl.html', games=schedule)
+    return render_template("nhl.html", games=schedule)
 
-@app.route('/mlb')
+
+@app.route("/mlb")
 def mlb():
     schedule = getMLBSchedule()
-    return render_template('mlb.html', games=schedule)
+    return render_template("mlb.html", games=schedule)
 
-@app.route('/display')
+
+@app.route("/show")
+def show():
+    return render_template("show.html")
+
+
+@app.route("/display")
 def display():
-    return render_template('display.html')
+    return render_template("display.html")
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     app.run(debug=True, port=4996)
